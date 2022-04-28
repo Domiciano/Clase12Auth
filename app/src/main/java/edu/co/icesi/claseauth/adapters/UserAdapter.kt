@@ -25,11 +25,11 @@ class UserAdapter: RecyclerView.Adapter<UserVH>() {
         holder.nameUserTV.text = users[position].username
         holder.emailUserTV.text = users[position].email
         holder.userAction.setOnClickListener{
-            goToChat(it.context, users[position])
+            goToChat(it.context, position)
         }
     }
 
-    fun goToChat(context:Context, user:User){
+    fun goToChat(context:Context, position: Int){
         val intent = Intent(context, ChatActivity::class.java)
         context.startActivity(intent)
     }
