@@ -12,6 +12,9 @@ class UserVH(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     val nameUserTV = binding.nameUserTV
     val emailUserTV = binding.emailUserTV
+    val userAction = binding.userAction
+
+
 
 
 }

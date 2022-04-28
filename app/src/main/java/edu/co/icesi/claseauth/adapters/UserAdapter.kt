@@ -1,8 +1,13 @@
 package edu.co.icesi.claseauth.adapters
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
+import edu.co.icesi.claseauth.ChatActivity
 import edu.co.icesi.claseauth.R
 import edu.co.icesi.claseauth.model.User
 import edu.co.icesi.claseauth.viewholders.UserVH
@@ -19,6 +24,14 @@ class UserAdapter: RecyclerView.Adapter<UserVH>() {
     override fun onBindViewHolder(holder: UserVH, position: Int) {
         holder.nameUserTV.text = users[position].username
         holder.emailUserTV.text = users[position].email
+        holder.userAction.setOnClickListener{
+            goToChat(it.context, users[position])
+        }
+    }
+
+    fun goToChat(context:Context, user:User){
+        val intent = Intent(context, ChatActivity::class.java)
+        context.startActivity(intent)
     }
 
     override fun getItemCount(): Int {

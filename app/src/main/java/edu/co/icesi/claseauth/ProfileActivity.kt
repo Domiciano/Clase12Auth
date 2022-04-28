@@ -39,7 +39,6 @@ class ProfileActivity : AppCompatActivity() {
             return
         }
 
-
         //Pedir mi documento
         val uid = Firebase.auth.currentUser?.uid
         Firebase.firestore.collection("users")
@@ -47,8 +46,6 @@ class ProfileActivity : AppCompatActivity() {
                 val user = it.toObject(User::class.java)
                 binding.profileWelcomeTV.text = "Bienvenido, ${user?.username}"
         }
-
-
 
 
         binding.profileSignoutBtn.setOnClickListener {
