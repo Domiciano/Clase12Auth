@@ -30,7 +30,9 @@ class UserAdapter: RecyclerView.Adapter<UserVH>() {
     }
 
     fun goToChat(context:Context, position: Int){
-        val intent = Intent(context, ChatActivity::class.java)
+        val intent = Intent(context, ChatActivity::class.java).apply {
+            putExtra("friend", users[position].id)
+        }
         context.startActivity(intent)
     }
 

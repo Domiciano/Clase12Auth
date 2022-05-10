@@ -51,6 +51,46 @@ class ProfileActivity : AppCompatActivity() {
             finish()
         }
 
+        //Pedir mis propios datos
+        /*
+        Firebase.firestore
+            .collection("users").document(Firebase.auth.currentUser!!.uid)
+            .get()
+            .addOnSuccessListener {
+                val user = it.toObject(User::class.java)!!
+                binding.profileWelcomeTV.text = "Bienvenido, ${user.username}"
+            }
+
+
+         */
+
+        lifecycleScope.launch(Dispatchers.IO) {
+            val user = Firebase.firestore
+                .collection("users")
+                .document(Firebase.auth.currentUser!!.uid).get().await().toObject(User::class.java)!!
+
+            withContext(Dispatchers.Main){
+                binding.profileWelcomeTV.text = "Bienvenido, ${user.username}"
+            }
+
+            val users = Firebase.firestore.collection("users").get().await().documents
+            withContext(Dispatchers.Main){
+                for(user in users){
+                    val obj = user.toObject(User::class.java)!!
+                    adapter.add(obj)
+                }
+            }
+
+
+        }
+
+
+
+
+
+
+
+
 
 
     }
