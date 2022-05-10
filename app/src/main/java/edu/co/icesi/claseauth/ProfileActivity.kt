@@ -3,9 +3,6 @@ package edu.co.icesi.claseauth
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.LinearLayout
-import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.ktx.auth
@@ -37,6 +34,11 @@ class ProfileActivity : AppCompatActivity() {
         binding.userList.layoutManager = LinearLayoutManager(this)
         binding.userList.setHasFixedSize(true)
 
+        binding.imageProfile.setOnClickListener {
+            val intent = Intent(this, ProfileDetailActivity::class.java)
+            startActivity(intent)
+        }
+
 
         //Saber si estoy loggeado
         if(Firebase.auth.currentUser == null){
@@ -45,11 +47,7 @@ class ProfileActivity : AppCompatActivity() {
             return
         }
 
-        binding.profileSignoutBtn.setOnClickListener {
-            Firebase.auth.signOut()
-            startActivity(Intent(this, LoginActivity::class.java))
-            finish()
-        }
+
 
         //Pedir mis propios datos
         /*
@@ -70,7 +68,7 @@ class ProfileActivity : AppCompatActivity() {
                 .document(Firebase.auth.currentUser!!.uid).get().await().toObject(User::class.java)!!
 
             withContext(Dispatchers.Main){
-                binding.profileWelcomeTV.text = "Bienvenido, ${user.username}"
+                binding.profileWelcomeTV.text = "${user.username}"
             }
 
             val users = Firebase.firestore.collection("users").get().await().documents
